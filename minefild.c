@@ -8,11 +8,12 @@ minefild * minefild_innit(int size_x, int size_y, int mines_amount){
     retVal->y = size_y;
 
     retVal->cover = malloc(sizeof(int)*size_x*size_y);
+    retVal->mines = malloc(sizeof(int)*size_x*size_y);
     for(int i=0; i<size_x*size_y; i++){
         retVal->cover[i] = 0;
+        retVal->mines[i] = 0;
     }
 
-    retVal->mines = calloc(size_x*size_y,sizeof(int));
     int rand_pos;
     for(int m=0; m<mines_amount;m++){
         rand_pos = rand()%(size_x*size_y);
@@ -35,7 +36,7 @@ void minefild_print(minefild* to_print){
     int pos;
     for(int y=0; y<to_print->y;y++){
         for(int x=0; x<to_print->x;x++){
-            pos = to_print->y*y + x;
+            pos = to_print->x*y + x;
             if(to_print->cover[pos]==1){
                 printf("# ");
             }else if (to_print->cover[pos]==2){
