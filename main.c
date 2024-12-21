@@ -16,7 +16,7 @@ void clear_stdin(){
     while(getchar()!='\n'){}
 }
 
-minefild* command_setup(){
+minefild* setup(){
     printf("podaj poziom trudnosci\n");
     printf("1-latwy; 2-sredni; 3-trudny; 4-wlasny\n");
     int dificulty;
@@ -63,10 +63,66 @@ minefild* command_setup(){
 
 }
 
+void load_move(minefild* game, int anser[3]){
+    // anser to (0-uncower;1-flag),x,y
+
+    printf("podaj ruch\n");
+    char comand;
+    while(1){
+        if(scanf("%c %d %d", &comand, &anser[1], &anser[2]) < 3){
+            printf("zly zapis\n");
+            clear_stdin();
+            continue;
+        }
+        if( comand != 'f' && comand != 'r'){
+            printf("nieznana akcja\n");
+            continue;
+        }
+        if( anser[1] <= 0 || anser[2] <= 0 || anser[1] > game->x || anser[2] > game->y){
+            printf("zle kordynaty\n");
+            continue;
+        }
+        break;
+    }
+    if( comand == 'r'){
+        anser[0] = 0;
+    }else{
+        anser[0] = 1;
+    }
+    anser[1]--;
+    anser[2]--;
+}
+
+void move(){
+
+}
+
+void start_move(minefild* game){
+    printf("podaj startowe kordynaty\n");
+    int x,y;
+    while(1){
+        if(scanf("%d %d", &x, &y) < 2){
+            printf("podaj liczby\n");
+            clear_stdin();
+            continue;
+        }
+        if( x <= 0 || y <= 0 || x > game->x || y > game->y){
+            printf("zle kordynaty %d %d\n", x, y);
+            continue;
+        }
+        break;
+    }
+    x--;
+    y--;
+    minefild_sopen(game, x, y);
+}
+
 int main(){
     srand(time(NULL));
     minefild* game;
-    game = command_setup();
+    game = setup();
+    minefild_print(game);
+    start_move(game);
     minefild_print(game);
     return 0;
 }

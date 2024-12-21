@@ -13,6 +13,14 @@ minefild * minefild_innit(int size_x, int size_y, int mines_amount);
 
 void minefild_free(minefild*);
 
+int minefild_cord_to_ind(minefild*, int, int);
+
 void minefild_print(minefild*);
+
+int minefild_open(minefild*, int, int);
+
+void minefild_sopen(minefild*, int, int);
+
+void minefild_floag(minefild*, int, int);
 
 #endif
