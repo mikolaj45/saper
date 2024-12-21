@@ -32,6 +32,7 @@ minefild* setup(){
         }
         break;
     }
+    clear_stdin();
 
     if(dificulty < 4){
         int std_seting[][3] = {
@@ -59,46 +60,39 @@ minefild* setup(){
         }
         break;
     }
+    clear_stdin();
     return minefild_innit(custom_minefild_data[0], custom_minefild_data[1], custom_minefild_data[2]);
 
 }
 
-void load_move(minefild* game, int anser[3]){
-    // anser to (0-uncower;1-flag),x,y
-
+int move(minefild* game){
     printf("podaj ruch\n");
     char comand;
+    int x,y;
     while(1){
-        if(scanf("%c %d %d", &comand, &anser[1], &anser[2]) < 3){
-            printf("zly zapis\n");
+        if(scanf("%c %d %d", &comand, &x, &y) < 3){
+            printf("zly zapis %c\n", comand);
             clear_stdin();
             continue;
         }
+        clear_stdin();
         if( comand != 'f' && comand != 'r'){
             printf("nieznana akcja\n");
             continue;
         }
-        if( anser[1] <= 0 || anser[2] <= 0 || anser[1] > game->x || anser[2] > game->y){
+        if( x <= 0 || y <= 0 || x > game->x || y > game->y){
             printf("zle kordynaty\n");
             continue;
         }
         break;
     }
-    if( comand == 'r'){
-        anser[0] = 0;
-    }else{
-        anser[0] = 1;
-    }
-    anser[1]--;
-    anser[2]--;
-}
-
-void move(){
-
+    x--;
+    y--;
+    return minefild_open(game, x, y);
 }
 
 void start_move(minefild* game){
-    printf("podaj startowe kordynaty\n");
+    printf("podaj startowe kordynaty\nr ");
     int x,y;
     while(1){
         if(scanf("%d %d", &x, &y) < 2){
@@ -112,6 +106,7 @@ void start_move(minefild* game){
         }
         break;
     }
+    clear_stdin();
     x--;
     y--;
     minefild_sopen(game, x, y);
@@ -124,5 +119,9 @@ int main(){
     minefild_print(game);
     start_move(game);
     minefild_print(game);
+    while (! move(game)){
+        minefild_print(game);
+    }
+    
     return 0;
 }

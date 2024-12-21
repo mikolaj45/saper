@@ -2,6 +2,8 @@
 #include<stdio.h>
 #include "minefild.h"
 
+#define MINE 9
+
 minefild * minefild_innit(int size_x, int size_y, int mines_amount){
     minefild* retVal = malloc(sizeof(minefild));
     retVal->x = size_x;
@@ -17,10 +19,10 @@ minefild * minefild_innit(int size_x, int size_y, int mines_amount){
     int rand_pos;
     for(int m=0; m<mines_amount;m++){
         rand_pos = rand()%(size_x*size_y);
-        if(retVal->mines[rand_pos] == 9){
+        if(retVal->mines[rand_pos] == MINE){
             m--;
         }
-        retVal->mines[rand_pos] = 9;
+        retVal->mines[rand_pos] = MINE;
     }
 
     return retVal;
@@ -49,16 +51,17 @@ void minefild_print(minefild* to_print){
         printf("%d ", x+1);
         for(int y=0; y<to_print->y;y++){
             pos = minefild_cord_to_ind(to_print, x, y);
-            if (to_print->mines[pos]==9){
-                printf("M ");
-            }else if(to_print->cover[pos]==1){
+            // if (to_print->mines[pos]==MINE){
+            //     printf("M ");
+            // }else 
+            if(to_print->cover[pos]==1){
                 printf("# ");
             }else if (to_print->cover[pos]==2){
                 printf("F ");
-            }else if (to_print->mines[pos]==9){
+            }else if (to_print->mines[pos]==MINE){
                 printf("M ");
             }else if( to_print->mines[pos]==0 ){
-                printf("_ ");
+                printf(". ");
             }else{
                 printf("%d ",to_print->mines[pos]);
             }
@@ -71,7 +74,7 @@ void minefild_print(minefild* to_print){
 int minefild_open(minefild* play, int x, int y){
     int pos = minefild_cord_to_ind(play, x, y);
     play->cover[pos] = 0;
-    if(play->mines[pos] == 9){
+    if(play->mines[pos] == MINE){
         return 1;
     }
     
@@ -93,13 +96,12 @@ int minefild_open(minefild* play, int x, int y){
             pola_n++;
         }
     }
-    
-    // printf("test");
 
+    //zliczanie min
     for(int i=0; i<pola_n; i++){
         if( play->mines[
             minefild_cord_to_ind(play, pola_around[i][0], pola_around[i][1])
-        ] == 9){
+        ] == MINE){
             play->mines[pos]++;
         }
     }
@@ -116,18 +118,21 @@ int minefild_open(minefild* play, int x, int y){
         }
         minefild_open(play, pola_around[i][0], pola_around[i][1]);
     }
+
+    return 0;
 }
 
 // tylko startowy ruch
 void minefild_sopen(minefild* play, int x, int y){
     int pos = minefild_cord_to_ind(play, x, y);
-    if(play->mines[pos] == 9){
-        play->mines[pos] = 0;
+    if(play->mines[pos] == MINE){
         int new_pos;
         do{
             new_pos = rand()%(play->x*play->y);
-        } while (play->mines[pos] != 9);
-        play->mines[pos] == 9;
+            // printf("%d\n", new_pos);
+        } while (play->mines[new_pos] == MINE);
+        play->mines[pos] = 0;
+        play->mines[new_pos] = MINE;
     }
     minefild_open(play, x, y);
 };
