@@ -66,16 +66,16 @@ void minefild_print(minefild* to_print){
         for(int y=0; y<to_print->y;y++){
             printf("%*c", y_with, ' ');
             pos = minefild_cord_to_ind(to_print, x, y);
-            if(to_print->cover[pos]==1){
+            if (to_print->cover[pos]==1){
                 printf("#");
             }else if (to_print->cover[pos]==2){
                 printf("\x1b[91mF\x1b[97m ");
             }else if (to_print->mines[pos]==MINE){
                 printf("M");
-            }else if( to_print->mines[pos]==0 ){
+            }else if ( to_print->mines[pos]==0 ){
                 printf(".");
             }else{
-                printf("\x1b[32m%d\x1b[97m ",to_print->mines[pos]);
+                printf("\x1b[32m%d\x1b[97m",to_print->mines[pos]);
             }
         }
         printf("\n");
@@ -161,4 +161,9 @@ void minefild_flag(minefild* play, int x, int y){
     }
     int switch_to[2] = {2,1};
     play->cover[pos] = switch_to[play->cover[pos]-1];
+}
+
+// 0-nic, 1-przegrana, 2-wygrana
+int minefild_check_board(minefild* to_check){
+    return 0;
 }
