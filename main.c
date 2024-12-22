@@ -88,7 +88,13 @@ int move(minefild* game){
     }
     x--;
     y--;
-    return minefild_open(game, x, y);
+    if(comand == 'r'){
+        return minefild_open(game, x, y);
+    }else if(comand == 'f'){
+        minefild_flag(game, x, y);
+        return 0;
+    }
+    return 1;
 }
 
 void start_move(minefild* game){

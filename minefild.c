@@ -40,30 +40,26 @@ int minefild_cord_to_ind(minefild* base, int x, int y){
 
 void minefild_print(minefild* to_print){
     int pos;
-
-    printf("  ");
+    printf("\x1b[90m  ");
     for(int i=0; i<to_print->y;i++){
         printf("%d ", i+1);
     }
-    printf("\n");
+    printf("\x1b[97m\n");
 
     for(int x=0; x<to_print->x;x++){
-        printf("%d ", x+1);
+        printf("\x1b[90m%d\x1b[97m ", x+1);
         for(int y=0; y<to_print->y;y++){
             pos = minefild_cord_to_ind(to_print, x, y);
-            // if (to_print->mines[pos]==MINE){
-            //     printf("M ");
-            // }else 
             if(to_print->cover[pos]==1){
                 printf("# ");
             }else if (to_print->cover[pos]==2){
-                printf("F ");
+                printf("\x1b[91mF\x1b[97m ");
             }else if (to_print->mines[pos]==MINE){
                 printf("M ");
             }else if( to_print->mines[pos]==0 ){
                 printf(". ");
             }else{
-                printf("%d ",to_print->mines[pos]);
+                printf("\x1b[32m%d\x1b[97m ",to_print->mines[pos]);
             }
         }
         printf("\n");
@@ -73,6 +69,9 @@ void minefild_print(minefild* to_print){
 // 0 - safe; 1 - mines
 int minefild_open(minefild* play, int x, int y){
     int pos = minefild_cord_to_ind(play, x, y);
+    if(play->cover[pos] != 1){
+        return 0;
+    }
     play->cover[pos] = 0;
     if(play->mines[pos] == MINE){
         return 1;
@@ -136,3 +135,12 @@ void minefild_sopen(minefild* play, int x, int y){
     }
     minefild_open(play, x, y);
 };
+
+void minefild_flag(minefild* play, int x, int y){
+    int pos = minefild_cord_to_ind(play, x, y);
+    if(play->cover[pos]==0){
+        return;
+    }
+    int switch_to[2] = {2,1};
+    play->cover[pos] = switch_to[play->cover[pos]-1];
+}

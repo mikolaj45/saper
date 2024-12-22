@@ -21,6 +21,6 @@ int minefild_open(minefild*, int, int);
 
 void minefild_sopen(minefild*, int, int);
 
-void minefild_floag(minefild*, int, int);
+void minefild_flag(minefild*, int, int);
 
 #endif
