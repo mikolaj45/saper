@@ -25,4 +25,6 @@ void minefild_sopen(minefild*, int, int);
 
 void minefild_flag(minefild*, int, int);
 
+int minefild_check_board(minefild*);
+
 #endif

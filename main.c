@@ -125,9 +125,11 @@ int main(){
     minefild_print(game);
     start_move(game);
     minefild_print(game);
-    while (! move(game)){
+    do{
+        move(game);
         minefild_print(game);
-    }
+    } while (0 == minefild_check_board(game));
+    
     
     return 0;
 }

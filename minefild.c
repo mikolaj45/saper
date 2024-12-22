@@ -165,5 +165,17 @@ void minefild_flag(minefild* play, int x, int y){
 
 // 0-nic, 1-przegrana, 2-wygrana
 int minefild_check_board(minefild* to_check){
-    return 0;
+    for(int i=0; i< to_check->x*to_check->y;i++){
+        if(to_check->cover[i]==0 && to_check->mines[i]==MINE){
+            return 1;
+        }
+    }
+
+    for(int i=0; i< to_check->x*to_check->y;i++){
+        if(to_check->cover[i]!=0 && to_check->mines[i]!=MINE){
+            return 0;
+        }
+    }
+
+    return 1;
 }
