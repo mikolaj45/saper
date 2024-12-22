@@ -69,7 +69,7 @@ void minefild_print(minefild* to_print){
             if (to_print->cover[pos]==1){
                 printf("#");
             }else if (to_print->cover[pos]==2){
-                printf("\x1b[91mF\x1b[97m ");
+                printf("\x1b[91mF\x1b[97m");
             }else if (to_print->mines[pos]==MINE){
                 printf("M");
             }else if ( to_print->mines[pos]==0 ){
