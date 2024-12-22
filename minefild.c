@@ -9,6 +9,7 @@ minefild * minefild_innit(int size_x, int size_y, int mines_amount, int multi){
     retVal->x = size_x;
     retVal->y = size_y;
     retVal->multi = multi;
+    retVal->score = 0;
 
     retVal->cover = malloc(sizeof(int)*size_x*size_y);
     retVal->mines = malloc(sizeof(int)*size_x*size_y);
@@ -40,26 +41,39 @@ int minefild_cord_to_ind(minefild* base, int x, int y){
 };
 
 void minefild_print(minefild* to_print){
-    printf("score: %d\n", to_print->score);
     int pos;
-    printf("\x1b[90m  ");
-    for(int i=0; i<to_print->y;i++){
-        printf("%d ", i+1);
+    int x_copy = to_print->x;
+    int y_copy = to_print->y;
+    int x_with = 1;
+    while (x_copy/=10){
+        x_with++;
+    }
+    int y_with = 1;
+    while (y_copy/=10){
+        y_with++;
+    }
+
+    printf("score: %d\n", to_print->score);
+    printf("\x1b[90m");
+    printf("%*c", x_with, ' ');
+    for(int i=1; i<=to_print->y;i++){
+        printf("%*d", y_with+1, i);
     }
     printf("\x1b[97m\n");
 
     for(int x=0; x<to_print->x;x++){
-        printf("\x1b[90m%d\x1b[97m ", x+1);
+        printf("\x1b[90m%*d\x1b[97m", x_with, x+1);
         for(int y=0; y<to_print->y;y++){
+            printf("%*c", y_with, ' ');
             pos = minefild_cord_to_ind(to_print, x, y);
             if(to_print->cover[pos]==1){
-                printf("# ");
+                printf("#");
             }else if (to_print->cover[pos]==2){
                 printf("\x1b[91mF\x1b[97m ");
             }else if (to_print->mines[pos]==MINE){
-                printf("M ");
+                printf("M");
             }else if( to_print->mines[pos]==0 ){
-                printf(". ");
+                printf(".");
             }else{
                 printf("\x1b[32m%d\x1b[97m ",to_print->mines[pos]);
             }
