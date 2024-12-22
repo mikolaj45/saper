@@ -4,10 +4,11 @@
 
 #define MINE 9
 
-minefild * minefild_innit(int size_x, int size_y, int mines_amount){
+minefild * minefild_innit(int size_x, int size_y, int mines_amount, int multi){
     minefild* retVal = malloc(sizeof(minefild));
     retVal->x = size_x;
     retVal->y = size_y;
+    retVal->multi = multi;
 
     retVal->cover = malloc(sizeof(int)*size_x*size_y);
     retVal->mines = malloc(sizeof(int)*size_x*size_y);
@@ -39,6 +40,7 @@ int minefild_cord_to_ind(minefild* base, int x, int y){
 };
 
 void minefild_print(minefild* to_print){
+    printf("score: %d\n", to_print->score);
     int pos;
     printf("\x1b[90m  ");
     for(int i=0; i<to_print->y;i++){
@@ -76,6 +78,8 @@ int minefild_open(minefild* play, int x, int y){
     if(play->mines[pos] == MINE){
         return 1;
     }
+
+    play->score += play->multi;
     
     int pola_around[8][2];
     int pola_n = 0;

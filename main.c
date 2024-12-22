@@ -35,13 +35,13 @@ minefild* setup(){
     clear_stdin();
 
     if(dificulty < 4){
-        int std_seting[][3] = {
-            {9,9,10},
-            {16,16,40},
-            {16,30,99}
+        int std_seting[][4] = {
+            {9,9,10, 1},
+            {16,16,40, 2},
+            {16,30,99, 3}
         };
         dificulty--;
-        return minefild_innit(std_seting[dificulty][0],std_seting[dificulty][1],std_seting[dificulty][2]);
+        return minefild_innit(std_seting[dificulty][0],std_seting[dificulty][1],std_seting[dificulty][2],std_seting[dificulty][3]);
     }
 
     int custom_minefild_data[3];
@@ -61,7 +61,7 @@ minefild* setup(){
         break;
     }
     clear_stdin();
-    return minefild_innit(custom_minefild_data[0], custom_minefild_data[1], custom_minefild_data[2]);
+    return minefild_innit(custom_minefild_data[0], custom_minefild_data[1], custom_minefild_data[2], 0);
 
 }
 

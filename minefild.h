@@ -7,9 +7,11 @@ typedef struct{
     int * cover;
     // <0;8> how many mines; 9 mines egzist
     int * mines;
+    int score;
+    int multi;
 } minefild;
 
-minefild * minefild_innit(int size_x, int size_y, int mines_amount);
+minefild * minefild_innit(int size_x, int size_y, int mines_amount, int multi);
 
 void minefild_free(minefild*);
 
