@@ -6,11 +6,6 @@
 
 #define BUFFERSIZE 256
 
-// czytanie wejscia
-// fgets(inputBuffer, BUFFERSIZE, stdin);
-// printf("%s\n", inputBuffer);
-// fflush(stdin);
-
 // tylko dla nie pustego stdin
 void clear_stdin(){
     while(getchar()!='\n'){}
@@ -125,11 +120,17 @@ int main(){
     minefild_print(game);
     start_move(game);
     minefild_print(game);
+
+    int end_type= 0;
     do{
         move(game);
         minefild_print(game);
-    } while (0 == minefild_check_board(game));
+        end_type = minefild_check_board(game);
+    } while (0 == end_type);
     
+    if( end_type == 1){
+        printf("mina wybuchla\n");
+    }
     
     return 0;
 }
