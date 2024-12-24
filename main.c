@@ -139,12 +139,13 @@ int main(){
 
     char player_name[NAME_LEN];
     printf("podaj imie (do 10 liter):\n");
-    load_name(stdin, player_name);
-    clear_stdin();
+    if(load_name(stdin, player_name) == 1){
+        clear_stdin();
+    }
 
     scorebord* table = scorebord_load();
+    scorebord_add(table, game->score, player_name);
     scorebord_print(table);
-
 
     return 0;
 }
