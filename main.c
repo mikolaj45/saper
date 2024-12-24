@@ -3,6 +3,7 @@
 #include<time.h>
 
 #include "minefild.h"
+#include "scoreBord.h"
 
 #define BUFFERSIZE 256
 
@@ -112,8 +113,10 @@ void start_move(minefild* game){
     y--;
     minefild_sopen(game, x, y);
 }
+#define MAX_LENGTH 20
 
 int main(){
+    // goto jump_here;
     srand(time(NULL));
     minefild* game;
     game = setup();
@@ -129,8 +132,19 @@ int main(){
     } while (0 == end_type);
     
     if( end_type == 1){
-        printf("mina wybuchla\n");
+        printf("mina wybuchla :')\n");
+    }else if( end_type == 2){
+        printf("udalo ci sie :)\n");
     }
-    
+
+    char player_name[NAME_LEN];
+    printf("podaj imie (do 10 liter):\n");
+    load_name(stdin, player_name);
+    clear_stdin();
+
+    scorebord* table = scorebord_load();
+    scorebord_print(table);
+
+
     return 0;
 }
