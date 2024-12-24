@@ -145,7 +145,8 @@ int main(){
 
     scorebord* table = scorebord_load();
     scorebord_add(table, game->score, player_name);
+    printf("najlepsi gracze\n");
     scorebord_print(table);
-
+    scorebord_save(table);
     return 0;
 }

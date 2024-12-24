@@ -15,7 +15,7 @@ typedef struct{
 
 scorebord* scorebord_load();
 
-void scorebord_free();
+void scorebord_free(scorebord* link);
 
 void scorebord_add(scorebord* link, int new_score, char player_name[NAME_LEN]);
 

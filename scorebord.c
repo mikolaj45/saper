@@ -18,14 +18,16 @@ scorebord* scorebord_load(){
     ){
         retVal->n++;
     }
-    retVal->n++;
+    // retVal->n++;
 
     fclose(sorse);
 
     return retVal;
 }
 
-void scorebord_free();
+void scorebord_free(scorebord* link){
+    free(link);
+}
 
 void scorebord_add(scorebord* link, int new_score, char player_name[NAME_LEN]){
     link->wynik[link->n] = new_score;
@@ -49,10 +51,16 @@ void scorebord_add(scorebord* link, int new_score, char player_name[NAME_LEN]){
     }
 }
 
-void scorebord_save(scorebord* link);
+void scorebord_save(scorebord* link){
+    FILE* to_save = fopen(SAVE_FILE, "w");
+    for(int i=0;i<link->n && i<BORD_LEN;i++){
+        fprintf(to_save, "%d : %s\n", link->wynik[i], link->gracz[i]);
+    }
+    scorebord_free(link);
+}
 
 void scorebord_print(scorebord* link){
-    for(int i=0; i<link->n; i++){
+    for(int i=0; i<link->n && i<BORD_LEN; i++){
         printf("%d : %s\n", link->wynik[i], link->gracz[i]);
     }
 };
