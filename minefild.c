@@ -30,6 +30,31 @@ minefild * minefild_innit(int size_x, int size_y, int mines_amount, int multi){
     return retVal;
 }
 
+minefild* minefild_for_file(FILE* sorse){
+    int x,y;
+    if( fscanf(sorse, "%d %d", &x, &y) < 2 ){
+        return NULL;
+    }
+    minefild* retVal = minefild_innit(x,y,0,1);
+    
+    char c;
+    for(int i=0;i<x*y;i++){
+        c = fgetc(sorse);
+        if(c == EOF){
+            return NULL;
+        }
+        if(c=='\n'){
+            i--;
+            continue;
+        }
+        if(c=='m'){
+            retVal->mines[i] = MINE;
+        }
+    }
+    fgetc(sorse);
+    return retVal;
+}
+
 void minefild_free(minefild* to_free){
     free(to_free->cover);
     free(to_free->mines);

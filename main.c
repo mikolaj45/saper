@@ -5,6 +5,7 @@
 
 #include "minefild.h"
 #include "scoreBord.h"
+#include "filegame.h"
 
 #define BUFFERSIZE 256
 
@@ -152,8 +153,13 @@ void hand_game(){
 int main(int argc, char ** argv){
     char opt;
     opt = getopt(argc, argv, "f:");
-    if(opt != -1){
-        printf("%s\n", optarg);
+    if(opt == 'f'){
+        FILE* og_file = fopen(optarg, "r");
+        if(og_file == NULL){
+            printf("zly plik\n");
+            return 0;
+        }
+        file_game(og_file);
     }else{
         hand_game();
     }

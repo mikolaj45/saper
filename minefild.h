@@ -13,6 +13,8 @@ typedef struct{
 
 minefild * minefild_innit(int size_x, int size_y, int mines_amount, int multi);
 
+minefild* minefild_for_file(FILE* sorse);
+
 void minefild_free(minefild*);
 
 int minefild_cord_to_ind(minefild*, int, int);
