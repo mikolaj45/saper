@@ -1,6 +1,7 @@
 #include<stdio.h>
 #include<stdlib.h>
 #include<time.h>
+#include <unistd.h>
 
 #include "minefild.h"
 #include "scoreBord.h"
@@ -113,10 +114,8 @@ void start_move(minefild* game){
     y--;
     minefild_sopen(game, x, y);
 }
-#define MAX_LENGTH 20
 
-int main(){
-    // goto jump_here;
+void hand_game(){
     srand(time(NULL));
     minefild* game;
     game = setup();
@@ -148,5 +147,16 @@ int main(){
     printf("najlepsi gracze\n");
     scorebord_print(table);
     scorebord_save(table);
+}
+
+int main(int argc, char ** argv){
+    char opt;
+    opt = getopt(argc, argv, "f:");
+    if(opt != -1){
+        printf("%s\n", optarg);
+    }else{
+        hand_game();
+    }
+
     return 0;
 }
