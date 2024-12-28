@@ -177,5 +177,5 @@ int minefild_check_board(minefild* to_check){
         }
     }
 
-    return 1;
+    return 2;
 }

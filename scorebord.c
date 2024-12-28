@@ -60,8 +60,9 @@ void scorebord_save(scorebord* link){
 }
 
 void scorebord_print(scorebord* link){
+    // printf("  %*c : punkty", NAME_LEN, "imie");
     for(int i=0; i<link->n && i<BORD_LEN; i++){
-        printf("%d : %s\n", link->wynik[i], link->gracz[i]);
+        printf("%d. %*s : %d\n", i+1, NAME_LEN-1,link->gracz[i],link->wynik[i]);
     }
 };
 

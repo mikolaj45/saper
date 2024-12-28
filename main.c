@@ -132,7 +132,7 @@ int main(){
     } while (0 == end_type);
     
     if( end_type == 1){
-        printf("mina wybuchla :')\n");
+        printf("mina wybuchla :'(\n");
     }else if( end_type == 2){
         printf("udalo ci sie :)\n");
     }
