@@ -51,7 +51,6 @@ minefild* minefild_for_file(FILE* sorse){
             retVal->mines[i] = MINE;
         }
     }
-    fgetc(sorse);
     return retVal;
 }
 
@@ -91,6 +90,8 @@ void minefild_print(minefild* to_print){
         for(int y=0; y<to_print->y;y++){
             printf("%*c", y_with, ' ');
             pos = minefild_cord_to_ind(to_print, x, y);
+            // if (to_print->mines[pos]==MINE){
+            //     printf("M");}else
             if (to_print->cover[pos]==1){
                 printf("#");
             }else if (to_print->cover[pos]==2){

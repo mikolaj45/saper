@@ -6,6 +6,7 @@
 #include "scoreBord.h"
 
 void file_game(FILE* sorse){
+    int poprawen_kroki = 0;
     minefild* game = minefild_for_file(sorse);
-    minefild_print(game);
+    
 }
