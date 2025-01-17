@@ -4,7 +4,7 @@
 #include <unistd.h>
 
 #include "minefild.h"
-#include "scoreBord.h"
+#include "scorebord.h"
 #include "filegame.h"
 
 #define BUFFERSIZE 256
