@@ -22,10 +22,8 @@ void scorebord_free(scorebord* link);
 
 void scorebord_add(scorebord* link, int new_score, char player_name[NAME_LEN]);
 
-// ! nie wywoluwac bez dodania nowego wyniku
 void scorebord_save(scorebord* link);
 
-// ! nie wywoluwac bez dodania nowego wyniku
 void scorebord_print(scorebord* link);
 
 int load_name(FILE * stream, char* retVal);

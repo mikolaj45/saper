@@ -9,7 +9,7 @@ scorebord* scorebord_load(){
     FILE *sorse = fopen(SAVE_FILE, "r");
 
     if(sorse == NULL){
-        retVal->n = 1;
+        retVal->n = 0;
         retVal->gracz = malloc(NAME_LEN * sizeof(char));
         retVal->wynik = malloc(sizeof(int));
         return retVal;
@@ -19,7 +19,7 @@ scorebord* scorebord_load(){
     if(fscanf(sorse, "%d", &ilosc_wpisow)==0){
         fprintf(stderr, "[!] 1 zly format");
     }
-    retVal->n = ilosc_wpisow+1;
+    retVal->n = ilosc_wpisow;
     retVal->gracz = malloc(retVal->n*NAME_LEN * sizeof(char));
     retVal->wynik = malloc(retVal->n*sizeof(int));
     int i=0;
@@ -40,9 +40,13 @@ void scorebord_free(scorebord* link){
 }
 
 void scorebord_add(scorebord* link, int new_score, char player_name[NAME_LEN]){
+    link->n++;
+    link->wynik = realloc(link->wynik, sizeof(int)*link->n);
+    link->gracz = realloc(link->gracz, link->n*NAME_LEN * sizeof(char));
+   
+   
     link->wynik[link->n-1] = new_score;
     strcpy( link->gracz+(link->n-1)*NAME_LEN, player_name);
-    // link->n++;
 
     char cbuf[NAME_LEN];
     int ibuf;
