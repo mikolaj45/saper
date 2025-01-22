@@ -159,7 +159,7 @@ int main(int argc, char ** argv){
             printf("zly plik\n");
             return 0;
         }
-        file_game(og_file);
+        int czy_kontynuowac = file_game(og_file);
     }else{
         hand_game();
     }
